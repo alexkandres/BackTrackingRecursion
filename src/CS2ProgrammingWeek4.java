@@ -22,7 +22,7 @@ public class CS2ProgrammingWeek4
 	 */
 	static String GetNameAndPID()
 	{
-		return( "Last,First,PID");
+		return( "Andres,Alex,3244017");
 	}
 	
 	//	Problem #1
@@ -54,9 +54,28 @@ public class CS2ProgrammingWeek4
 	 */
 	static boolean groupSumsTarget(int start, int[] nums, int target) 
 	{
-		return false;
+		//System.out.println(start);
+		
+		//if sum - target == 0 then true
+		if(target == 0)
+			return true;
+		
+		if(start >= nums.length)
+			return false;
+		
+		if(target != 0 && nums.length == 0)
+			return false;
+		
+		if(target < 0)
+			return false;
+		
+		if(groupSumsTarget(start + 1, nums, target - nums[start]))
+			return true;
+		
+		//next index
+		return groupSumsTarget(start + 1, nums, target);
 	}
-
+	
 	//	Problem #2
 	//	Given an array of ints, is it possible to choose a group of 
 	//	some of the ints, beginning at the start index, such that 
@@ -80,9 +99,49 @@ public class CS2ProgrammingWeek4
 	 */
 	static boolean groupSumsTarget6(int start, int[] nums, int target) 
 	{
-		return false;
-	}	
+		int sixes;
 
+		System.out.println(start);
+		
+		//if sum - target == 0 then true
+		if(target == 0)
+			return true;
+		
+		if(start >= nums.length)
+			return false;
+		
+		if(target != 0 && nums.length == 0)
+			return false;
+		
+		if(target < 0)
+			return false;
+		
+		//get number of sixes
+		if(start == 0){
+			
+			sixes = getSixes(nums);
+			target = target - sixes*6;
+		}
+		
+		if(groupSumsTarget6(start + 1, nums, target - nums[start]))
+			return true;
+			
+		//next index
+		return groupSumsTarget6(start + 1, nums, target);
+	
+	}	
+	
+	public static int getSixes(int[] nums) {
+		
+		int sixes = 0;
+		
+		for(Integer i: nums){
+			
+			if(i == 6)
+				sixes++;
+		}
+		return sixes;
+	}
 	//	Problem #3
 	//	Given an array of ints, is it possible to choose a group of some 
 	//	of the ints, such that the group sums to the given target with this 
@@ -93,7 +152,7 @@ public class CS2ProgrammingWeek4
 	//	groupSumsTargetNoAdj(0, {2, 5, 10, 4}, 12) → true
 	//	groupSumsTargetNoAdj(0, {2, 5, 10, 4}, 14) → false
 	//	groupSumsTargetNoAdj(0, {2, 5, 10, 4}, 7) → false
-	
+
 	/**
 	 * 
 	 * @param start, nums, target
@@ -250,6 +309,14 @@ public class CS2ProgrammingWeek4
 	
 	public static void main(String[] args)
 	{
+		
+		int[] arr = {5,6,2,1};
+		
+		System.out.println(groupSumsTarget6(0, arr, 8));
+		System.out.println(groupSumsTarget6(0, arr, 9));
+		System.out.println(groupSumsTarget6(0, arr, 7));
+		
+		
 	}
 	
 }
